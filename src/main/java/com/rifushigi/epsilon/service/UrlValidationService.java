@@ -16,41 +16,47 @@ public class UrlValidationService {
 
     private final UrlValidator urlValidator;
 
-    public UrlValidationService(){
+    public UrlValidationService() {
         String[] ALLOWED_PROTOCOLS = {"http", "https"};
         this.urlValidator = new UrlValidator(ALLOWED_PROTOCOLS);
     }
 
-    public boolean isUrlValid(String url){
-        if(url == null || url.trim().isEmpty()){
+    public boolean isUrlValid(String url) {
+        if (url == null || url.trim().isEmpty()) {
             return false;
         }
 
-        if(!urlValidator.isValid(url)){
-            if(!urlValidator.isValid("https://" + url)){
-                return false;
-            }
+        //check the url to ensure it has a protocol
+        String normalizedUrl = normalizeUrl(url);
+
+        if (!urlValidator.isValid(normalizedUrl)) {
+            return false;
         }
 
-        try{
-            String urlToParse = url;
-
-            if(!urlToParse.matches("^[a-zA-Z]+://.*")){
-                urlToParse = "https://" + urlToParse;
-            }
-
-            URL parsedUrl = URI.create(urlToParse).toURL();
-
+        try {
+            URL parsedUrl = URI.create(normalizedUrl).toURL();
             if (isBlockedDomain(parsedUrl.getHost())) {
                 return false;
             }
-
-            } catch (IllegalArgumentException | MalformedURLException e) {
+        } catch (IllegalArgumentException | MalformedURLException e) {
             return false;
         }
+
         return true;
     }
 
+    public String normalizeUrl(String url) {
+        if (url == null || url.trim().isEmpty()) {
+            return url;
+        }
+
+        // check if the url already starts with a protocol
+        if (!url.matches("^[a-zA-Z]+://.*")) {
+            return "https://" + url;
+        }
+
+        return url;
+    }
 
     private boolean isBlockedDomain(String host) {
         if (host == null) {
