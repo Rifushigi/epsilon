@@ -1,14 +1,15 @@
 package com.rifushigi.epsilon.dto;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public record UrlAnalyticsResponse(
-        Long id,
+        UUID id,
         String originalUrl,
         String shortCode,
         String shortUrl,
-        String clickCount,
-        String ttlSeconds,
+        Long clickCount,
+        Long ttlSeconds,
         LocalDateTime expiresAt,
         boolean isCustom,
         LocalDateTime createdAt,
