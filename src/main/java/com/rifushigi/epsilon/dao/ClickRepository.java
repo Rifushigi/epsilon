@@ -18,8 +18,4 @@ public interface ClickRepository extends JpaRepository<Click, UUID> {
 
     @Query("select c from Click c where c.shortUrl = :shortUrl")
     Page<Click> findLatestClicksByShortUrl(@Param("shortUrl") ShortUrl shortUrl, Pageable pageable);
-
-    @Query("select c from Click c where c.shortUrl = :shortUrl group by c.country order by COUNT(c) desc")
-    Page<Click> getClickStatsByCountry(@Param("shortUrl") ShortUrl shortUrl, Pageable pageable);
-
 }
