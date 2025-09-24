@@ -19,23 +19,23 @@ public interface ShortUrlRepository extends JpaRepository<ShortUrl, UUID> {
 
     Optional<ShortUrl> findByShortCode(String shortCode);
 
-    @Query("SELECT s FROM ShortUrl s WHERE s.shortCode = :shortCode AND s.expiresAt > :now")
+    @Query("select s from ShortUrl s where s.shortCode = :shortCode and s.expiresAt > :now")
     Optional<ShortUrl> findByShortCodeAndNotExpired(@Param("shortCode") String shortCode,
                                                     @Param("now") LocalDateTime now);
 
     Page<ShortUrl> findByUserOrderByClickCountDesc(@Param("user")User user, Pageable pageable);
 
-    @Query("SELECT s FROM ShortUrl s WHERE s.user = :user AND s.expiresAt > :now ORDER BY s.createdAt DESC")
+    @Query("select s from ShortUrl s where s.user = :user and s.expiresAt > :now order by s.createdAt desc")
     Page<ShortUrl> findByUserAndNotExpiredOrderByCreatedAtDesc(@Param("user") User user,
                                                                @Param("now") LocalDateTime now,
                                                                Pageable pageable);
 
     @Modifying(clearAutomatically = true)
-    @Query("UPDATE ShortUrl s SET s.clickCount = s.clickCount + 1 WHERE s.id = :id")
+    @Query("update ShortUrl s set s.clickCount = s.clickCount + 1 where s.id = :id")
     void incrementClickCount(@Param("id") UUID id);
 
     boolean existsByShortCode(String shortCode);
 
-    @Query("SELECT COUNT(s) FROM ShortUrl s WHERE s.user = :user")
+    @Query("select COUNT(s) from ShortUrl s where s.user = :user")
     long countByUser(@Param("user") User user);
 }
