@@ -36,6 +36,9 @@ public class Click {
     @Column(name = "referer", length = 2048)
     private String referer;
 
+    @Column(name = "country")
+    private String country;
+
     @CreationTimestamp
     @Column(name = "clicked_at", nullable = false, updatable = false)
     private LocalDateTime clickedAt;
