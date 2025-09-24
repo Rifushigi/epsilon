@@ -3,9 +3,10 @@ package com.rifushigi.epsilon.dto;
 public record AuthResponse(
         String token,
         String type,
-        String username
+        String username,
+        String email
 ) {
-    public AuthResponse(String token, String username){
-        this(token, "Bearer", username);
+    public AuthResponse(String token, String username, String email){
+        this(token, "Bearer", username, email);
     }
 }
