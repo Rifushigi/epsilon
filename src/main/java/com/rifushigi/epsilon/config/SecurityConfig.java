@@ -46,6 +46,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/url/shorten").permitAll()
                         .requestMatchers("/api/url/{shortCode}").permitAll()
+                        .requestMatchers("/error", "/error/**").permitAll()
                         .requestMatchers(EndpointRequest.toAnyEndpoint()).hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
