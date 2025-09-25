@@ -48,6 +48,19 @@ public class UrlShortenerService {
         String normalisedUrl = urlValidationService.normalizeUrl(request.url());
         Long ttlSeconds = request.ttlSeconds() != null ? request.ttlSeconds() : defaultTtl;
 
+        ShortUrl existing = findExistingShortUrl(user, normalisedUrl);
+        if (existing != null) {
+            return new UrlShortenResponse(
+                    existing.getOriginalUrl(),
+                    baseUrl + "/urls/" + existing.getShortCode(),
+                    existing.getShortCode(),
+                    existing.getTtlSeconds(),
+                    existing.getExpiresAt(),
+                    existing.getIsCustom(),
+                    existing.getCreatedAt()
+            );
+        }
+
         String shortCode;
         boolean isCustom = false;
 
@@ -107,5 +120,10 @@ public class UrlShortenerService {
         shortUrlRepository.incrementClickCount(shortUrl.getId());
 
         clickService.saveClickDetails(shortUrl, ipAddr, userAgent, referer);
+    }
+
+    @Cacheable(value = "shortUrls", key = "#user.id + ':' + #normalizedUrl")
+    public ShortUrl findExistingShortUrl(User user, String normalizedUrl) {
+        return shortUrlRepository.findByUserAndOriginalUrl(user, normalizedUrl);
     }
 }
