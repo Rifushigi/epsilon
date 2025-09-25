@@ -122,7 +122,6 @@ public class UrlShortenerService {
         clickService.saveClickDetails(shortUrl, ipAddr, userAgent, referer);
     }
 
-    @Cacheable(value = "shortUrls", key = "#user.id + ':' + #normalizedUrl")
     public ShortUrl findExistingShortUrl(User user, String normalizedUrl) {
         return shortUrlRepository.findByUserAndOriginalUrl(user, normalizedUrl);
     }

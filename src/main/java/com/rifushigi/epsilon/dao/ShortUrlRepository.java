@@ -2,6 +2,7 @@ package com.rifushigi.epsilon.dao;
 
 import com.rifushigi.epsilon.entity.ShortUrl;
 import com.rifushigi.epsilon.entity.User;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -36,5 +37,6 @@ public interface ShortUrlRepository extends JpaRepository<ShortUrl, UUID> {
 
     boolean existsByShortCode(String shortCode);
 
+    @Cacheable(value = "shortUrls", key = "#user.id + ':' + #normalizedUrl")
     ShortUrl findByUserAndOriginalUrl(User user, String normalizedUrl);
 }
