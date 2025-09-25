@@ -24,7 +24,7 @@ public interface ShortUrlRepository extends JpaRepository<ShortUrl, UUID> {
     Optional<ShortUrl> findByShortCodeAndNotExpired(@Param("shortCode") String shortCode,
                                                     @Param("now") LocalDateTime now);
 
-    Page<ShortUrl> findByUserOrderByClickCountDesc(@Param("user")User user, Pageable pageable);
+    Page<ShortUrl> findByUserOrderByClickCountDesc(@Param("user") User user, Pageable pageable);
 
     @Query("select s from ShortUrl s where s.user = :user and s.expiresAt > :now order by s.createdAt desc")
     Page<ShortUrl> findByUserAndNotExpiredOrderByCreatedAtDesc(@Param("user") User user,
@@ -37,6 +37,6 @@ public interface ShortUrlRepository extends JpaRepository<ShortUrl, UUID> {
 
     boolean existsByShortCode(String shortCode);
 
-    @Cacheable(value = "shortUrls", key = "#user.id + ':' + #normalizedUrl")
+    @Cacheable(value = "shortUrls", key = "#user.id + ':' + #normalizedUrl", unless = "#result == null")
     ShortUrl findByUserAndOriginalUrl(User user, String normalizedUrl);
 }
