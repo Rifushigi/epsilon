@@ -1,6 +1,5 @@
 package com.rifushigi.epsilon.config;
 
-import com.rifushigi.epsilon.dao.UserRepository;
 import com.rifushigi.epsilon.security.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
