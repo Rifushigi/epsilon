@@ -21,10 +21,10 @@ public class UrlShortenerService {
     private final ShortCodeGeneratorService shortCodeGeneratorService;
     private final ClickService clickService;
 
-    @Value("${DEFAULT_TTL}")
+    @Value("${default-ttl}")
     private Long defaultTtl;
 
-    @Value("${BASE_URL}")
+    @Value("${base-url}")
     private String baseUrl;
 
     public UrlShortenerService(

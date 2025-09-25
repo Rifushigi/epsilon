@@ -27,7 +27,7 @@ public class UrlAnalyticsService {
         this.clickRepository = clickRepository;
     }
 
-    @Value("${urlshortener.base-url}")
+    @Value("$base-url}")
     private String baseUrl;
 
     public Page<UrlAnalyticsResponse> getUserUrls(User user, Pageable pageable) {
