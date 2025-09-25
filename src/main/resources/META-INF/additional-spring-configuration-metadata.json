@@ -1,0 +1,23 @@
+{
+  "properties": [
+    {
+      "name": "default-ttl",
+      "type": "java.lang.String",
+      "description": "Default time to live of the shortened url."
+    },
+    {
+      "name": "base-url",
+      "type": "java.lang.String",
+      "description": "Base url of the server."
+    },
+    {
+      "name": "jwt.secret",
+      "type": "java.lang.String",
+      "description": "Secret for encoding jwt token."
+    },
+    {
+      "name": "jwt.expiration",
+      "type": "java.lang.String",
+      "description": "Expiration time of the jwt in milliseconds."
+    }
+  ] }
