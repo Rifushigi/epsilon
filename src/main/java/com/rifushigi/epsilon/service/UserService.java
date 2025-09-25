@@ -31,7 +31,7 @@ public class UserService {
         this.jwtService = jwtService;
     }
 
-    public User registerUser(RegistrationRequest request){
+    public void registerUser(RegistrationRequest request){
         if (userRepository.existsByUsername(request.username())){
             throw new RuntimeException("Username is already taken");
         }
@@ -45,7 +45,7 @@ public class UserService {
         user.setUsername(request.username());
         user.setPassword(passwordEncoder.encode(request.password()));
 
-        return userRepository.save(user);
+        userRepository.save(user);
     }
 
     public AuthResponse loginUser(LoginRequest request){
