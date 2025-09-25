@@ -35,7 +35,4 @@ public interface ShortUrlRepository extends JpaRepository<ShortUrl, UUID> {
     void incrementClickCount(@Param("id") UUID id);
 
     boolean existsByShortCode(String shortCode);
-
-    @Query("select COUNT(s) from ShortUrl s where s.user = :user")
-    long countByUser(@Param("user") User user);
 }
