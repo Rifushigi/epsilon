@@ -37,6 +37,5 @@ public interface ShortUrlRepository extends JpaRepository<ShortUrl, UUID> {
 
     boolean existsByShortCode(String shortCode);
 
-    @Cacheable(value = "shortUrls", key = "#user.id + ':' + #normalizedUrl", unless = "#result == null")
     ShortUrl findByUserAndOriginalUrl(User user, String normalizedUrl);
 }
