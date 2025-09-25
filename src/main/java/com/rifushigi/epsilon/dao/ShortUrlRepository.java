@@ -35,4 +35,6 @@ public interface ShortUrlRepository extends JpaRepository<ShortUrl, UUID> {
     void incrementClickCount(@Param("id") UUID id);
 
     boolean existsByShortCode(String shortCode);
+
+    ShortUrl findByUserAndOriginalUrl(User user, String normalizedUrl);
 }
