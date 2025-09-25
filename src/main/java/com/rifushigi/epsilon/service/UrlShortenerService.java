@@ -21,7 +21,7 @@ public class UrlShortenerService {
     private final ShortCodeGeneratorService shortCodeGeneratorService;
     private final ClickService clickService;
 
-    @Value("86400")
+    @Value("${DEFAULT_TTL}")
     private Long defaultTtl;
 
     @Value("${BASE_URL}")
