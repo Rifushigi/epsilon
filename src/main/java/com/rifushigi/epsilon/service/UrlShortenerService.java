@@ -11,6 +11,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 @Service
 @Transactional
@@ -73,6 +74,10 @@ public class UrlShortenerService {
         shortUrl.setTtlSeconds(ttlSeconds);
         shortUrl.setUser(user);
         shortUrl.setIsCustom(isCustom);
+
+        LocalDateTime now = LocalDateTime.now(ZoneOffset.UTC);
+        shortUrl.setCreatedAt(now);
+        shortUrl.setExpiresAt(now.plusSeconds(ttlSeconds));
 
         shortUrl = shortUrlRepository.save(shortUrl);
 
