@@ -65,6 +65,4 @@ public class ShortUrl {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public boolean isExpired(){return LocalDateTime.now().isAfter(expiresAt);}
-
 }
