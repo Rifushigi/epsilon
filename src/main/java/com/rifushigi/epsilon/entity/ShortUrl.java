@@ -1,5 +1,6 @@
 package com.rifushigi.epsilon.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -47,16 +48,19 @@ public class ShortUrl {
     @Column(name = "ttl_seconds", nullable = false)
     private Long ttlSeconds;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "expires_at", nullable = false)
     private LocalDateTime expiresAt;
 
     @Column(name = "is_custom", nullable = false)
     private Boolean isCustom = false;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
