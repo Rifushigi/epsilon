@@ -14,8 +14,6 @@ import java.util.UUID;
 @Repository
 public interface ClickRepository extends JpaRepository<Click, UUID> {
 
-    Page<Click> findByShortUrlOrderByClickedAtDesc(ShortUrl shortUrl, Pageable pageable);
-
     @Query("select c from Click c where c.shortUrl = :shortUrl")
     Page<Click> findLatestClicksByShortUrl(@Param("shortUrl") ShortUrl shortUrl, Pageable pageable);
 }
