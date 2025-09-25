@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/urls")
+@RequestMapping("/api/v1/urls")
 @CrossOrigin(origins = "*")
 public class UrlController {
 

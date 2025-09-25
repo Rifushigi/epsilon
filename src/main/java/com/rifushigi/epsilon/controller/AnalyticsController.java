@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/analytics")
+@RequestMapping("/api/v1/analytics")
 @CrossOrigin(origins = "*")
 public class AnalyticsController {
 
