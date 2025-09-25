@@ -1,0 +1,58 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-prod
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: epsilon
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data_prod:/var/lib/mysql
+    networks:
+      - epsilon-network
+    restart: unless-stopped
+    command: --default-authentication-plugin=mysql_native_password
+
+  redis:
+    image: redis:7-alpine
+    container_name: epsilon-redis-prod
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data_prod:/data
+    networks:
+      - epsilon-network
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+
+  app:
+    build: .
+    container_name: epsilon-app-prod
+    environment:
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRATION: ${JWT_EXPIRATION}
+      BASE_URL: ${BASE_URL}
+      DEFAULT_TTL: ${DEFAULT_TTL}
+      PORT: ${PORT:-10000}
+      REDIS_URL: redis://redis:6379
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - epsilon-network
+    restart: unless-stopped
+
+volumes:
+  mysql_data_prod:
+  redis_data_prod:
+
+networks:
+  epsilon-network:
+    driver: bridge
