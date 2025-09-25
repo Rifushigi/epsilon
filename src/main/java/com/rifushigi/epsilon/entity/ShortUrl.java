@@ -67,6 +67,4 @@ public class ShortUrl {
 
     public boolean isExpired(){return LocalDateTime.now().isAfter(expiresAt);}
 
-    public void incrementClickCount(){this.clickCount++;}
-
 }
