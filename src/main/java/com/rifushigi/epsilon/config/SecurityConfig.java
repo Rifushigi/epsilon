@@ -1,6 +1,7 @@
 package com.rifushigi.epsilon.config;
 
 import com.rifushigi.epsilon.security.JwtAuthenticationFilter;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -45,8 +46,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/url/shorten").permitAll()
                         .requestMatchers("/api/url/{shortCode}").permitAll()
-                        .requestMatchers("/api/health").permitAll()
-                        .requestMatchers("/actuator").permitAll()
+                        .requestMatchers(EndpointRequest.toAnyEndpoint()).hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .headers(headers -> headers
