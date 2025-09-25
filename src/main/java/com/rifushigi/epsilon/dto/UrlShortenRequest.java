@@ -14,7 +14,4 @@ public record UrlShortenRequest(
         @Size(min = 3, max = 20, message = "Custom short code must be between 3 and 20 characters")
         String customShortCode
 ) {
-    public UrlShortenRequest(String url, Long ttlSeconds){
-        this(url, ttlSeconds, null);
-    }
 }
