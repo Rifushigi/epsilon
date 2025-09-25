@@ -1,5 +1,6 @@
 package com.rifushigi.epsilon.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,6 +37,7 @@ public class Click {
     @Column(name = "referer", length = 2048)
     private String referer;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @CreationTimestamp
     @Column(name = "clicked_at", nullable = false, updatable = false)
     private LocalDateTime clickedAt;
