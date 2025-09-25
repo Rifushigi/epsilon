@@ -39,7 +39,7 @@ public class ShortUrl {
     @Column(name = "short_code", unique = true, nullable = false)
     private String shortCode;
 
-    @Column(name = "column_count", nullable = false)
+    @Column(name = "click_count", nullable = false)
     private Long clickCount = 0L;
 
     @NotNull(message = "TTL is required")

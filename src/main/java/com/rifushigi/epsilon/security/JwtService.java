@@ -17,10 +17,10 @@ import java.util.function.Function;
 public class JwtService {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtService.class);
-    @Value("${JWT_SECRET}")
+    @Value("${jwt.secret}")
     private String jwtSecret;
 
-    @Value("${JWT_EXPIRATION}")
+    @Value("${jwt.expiration}")
     private int jwtExpirationMs;
 
     private SecretKey getSigningKey(){ return Keys.hmacShaKeyFor(jwtSecret.getBytes()); }
